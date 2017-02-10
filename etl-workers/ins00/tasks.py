@@ -46,6 +46,8 @@ def load_ins00_data(*args, **kwargs):
                                myfile],
                                shell=False)
         results.append(str(res))
+    else:
+        result.append('please make sure both reader and client file are in place...')
     return ''.join(results)
 
 
