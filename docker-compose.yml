@@ -12,7 +12,7 @@ services:
     command: >
       jupyter notebook
       --NotebookApp.ip=0.0.0.0
-      --NotebookApp.password=med
+      --NotebookApp.password='sha1:0d20f0c96906:9e756c56bba64e7176e54237bb34dc67b12e7982'
     links:
       - worker
   db:
