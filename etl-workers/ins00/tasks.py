@@ -41,7 +41,7 @@ def load_ins00_data(*args, **kwargs):
         myfile = 'Data/{}'.format(kwargs.get('data', 'Med_309_fake.txt'))
 
         import subprocess
-        res = subprocess.call(['python',
+        res = subprocess.call(['python3',
                                myreader,
                                myfile],
                                shell=False)
