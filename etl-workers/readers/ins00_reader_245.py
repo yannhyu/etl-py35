@@ -77,7 +77,7 @@ if __name__ == '__main__':
                 engine.execute(
                     meta.tables['ins00'].insert().values(data=row)
                 )
-            except (psycopg2.DataError, sqlalchemy.exc.DataError, sqlalchemy.exc.StatementError):
+            except (psycopg2.DataError, sqlalchemy.exc.DataError, sqlalchemy.exc.StatementError, UnicodeDecodeError):
                 print('Unable to insert data:')
                 print(row)
                 pass
