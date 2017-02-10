@@ -69,7 +69,7 @@ def project_data(dict_data):
     return dict_out
 
 if __name__ == '__main__':
-    for line in fileinput.input(openhook=fileinput.hook_encoded("utf-8")):
+    for line in fileinput.input(openhook=fileinput.hook_encoded("latin-1")):
         if not fileinput.isfirstline():    # First line is header in the case of 245
             dic_line = dict(zip(INPUT_LAYOUT, line.strip('\n').strip('\r').split('|')))
             row = project_data(dic_line)
