@@ -1,0 +1,73 @@
+version: '2'
+services:
+  notes:
+    image: med-notes
+    restart: always
+    container_name: med-notes
+    build:
+      context: ./etl-workers
+      dockerfile: Dockerfile4notes
+    ports:
+      - "8080:8888"
+    command: >
+      jupyter notebook
+      --NotebookApp.ip=0.0.0.0
+      --NotebookApp.password=med
+    links:
+      - worker
+  db:
+    restart: always
+    image: postgres:9.5
+    container_name: med-db
+    volumes:
+      - ./db/pgdata:/pgdata
+      - ./db/sample-setup.sql:/docker-entrypoint-initdb.d/sample-setup.sql
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=postgres
+      - PGDATA=/pgdata
+  web:
+    image: med-web
+    container_name: med-web
+    build:
+      context: ./web-app
+      dockerfile: Dockerfile
+    restart: always
+    ports:
+      - "5000:5000"
+    depends_on:
+      - redis
+    environment:
+      PYTHONUNBUFFERED: 0
+  worker:
+    image: med-worker
+    container_name: med-pipeline
+    build:
+      context: ./etl-workers
+      dockerfile: Dockerfile
+    depends_on:
+      - redis
+    links:
+      - db
+    environment:
+      PYTHONUNBUFFERED: 0
+  monitor:
+    image: med-monitor
+    container_name: med-monitor
+    build:
+      context: ./etl-workers
+      dockerfile: Dockerfile
+    ports:
+     - "5555:5555"
+    entrypoint: flower
+    command:  -A celery_config --port=5555 --broker=redis://redis:6379/0
+    depends_on:
+      - redis
+    environment:
+      PYTHONUNBUFFERED: 0
+  redis:
+    image: redis
+    container_name: med-broker
