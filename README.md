@@ -1,4 +1,4 @@
-# etl-design
+# etl-design for python3.5
 
 to scale up:
 +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -12,5 +12,8 @@ airflow@mllxv-yu:~/workspace/etl-design$ docker-compose-1.9.0 scale worker=3
 Creating and starting etldesign_worker_2 ... done
 Creating and starting etldesign_worker_3 ... done
 
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+# for jupyter notebook, use etl
 
 
