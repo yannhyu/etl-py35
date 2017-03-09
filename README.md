@@ -16,4 +16,8 @@ Creating and starting etldesign_worker_3 ... done
 
 # for jupyter notebook, use etl
 
+psql:
+(1) \COPY [ some db table] TO '/tmp/some_tbl.csv' WITH (FORMAT CSV, HEADER)
+(2) create table in new db
+(3) \COPY [ new table in new db] FROM '/tmp/some_tbl.csv' DELIMITER ',' CSV HEADER
 
